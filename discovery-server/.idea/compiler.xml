@@ -10,7 +10,9 @@
         <module name="api-gateway" />
         <module name="user-service" />
         <module name="discovery-server" />
+        <module name="flight-service" />
         <module name="hotel-service" />
+        <module name="booking-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,7 +23,9 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
+      <module name="booking-service" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
+      <module name="flight-service" options="-parameters" />
       <module name="hotel-service" options="-parameters" />
       <module name="restaurant-service" options="-parameters" />
       <module name="swiggy-app" options="-parameters" />

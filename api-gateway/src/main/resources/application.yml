@@ -10,6 +10,13 @@ spring:
          filters:
            - AuthenticationFilter
 
+       - id: flight-service
+         uri: lb://flight-service
+         predicates:
+           - Path=/flight/**
+         filters:
+           - AuthenticationFilter
+
 
        - id: user-service
          uri: lb://USER-SERVICE

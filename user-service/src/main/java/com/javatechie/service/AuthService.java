@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 @Service
 public class AuthService {
 
@@ -26,6 +30,16 @@ public class AuthService {
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
+    }
+
+
+    public void generateAndSaveUser() {
+        List<UserCredential> userCredentials=new ArrayList<>();
+        userCredentials.add(new UserCredential(1,"ashish","ashish",null));
+        userCredentials.add(new UserCredential(2,"abc","abc",null));
+        userCredentials.add(new UserCredential(3,"123","123",null));
+        repository.saveAll(userCredentials);
+
     }
 
 

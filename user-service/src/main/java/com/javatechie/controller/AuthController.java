@@ -3,7 +3,9 @@ package com.javatechie.controller;
 import com.javatechie.entity.UserCredential;
 import com.javatechie.repository.UserCredentialRepository;
 import com.javatechie.service.AuthService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,5 +53,19 @@ public class AuthController {
     public String validateToken(@RequestParam("token") String token) {
         service.validateToken(token);
         return "Token is valid";
+    }
+
+
+
+    @PostMapping("/generate")
+    public ResponseEntity<String> generateUser() {
+        service.generateAndSaveUser();
+        return ResponseEntity.ok("3 user generated and saved.");
+    }
+
+
+    @PostConstruct
+    public void init() {
+        generateUser();
     }
 }
