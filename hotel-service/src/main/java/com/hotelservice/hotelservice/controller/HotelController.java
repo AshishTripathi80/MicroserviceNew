@@ -31,6 +31,8 @@ public class HotelController {
 
 
 
+
+
     @PostMapping("/generate")
     public ResponseEntity<String> generateHotels() {
         hotelService.generateAndSaveHotels();
