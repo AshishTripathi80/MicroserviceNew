@@ -31,4 +31,8 @@ public class HotelService {
         }
         hotelRepository.saveAll(hotels);
     }
+
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
 }

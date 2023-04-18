@@ -1,6 +1,5 @@
 package com.hotelservice.hotelservice.controller;
 
-import com.hotelservice.hotelservice.models.BookingDetail;
 import com.hotelservice.hotelservice.models.Hotel;
 import com.hotelservice.hotelservice.repo.HotelRepository;
 import com.hotelservice.hotelservice.service.HotelService;
@@ -12,10 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-
-@CrossOrigin
 @RestController
-@RequestMapping("/hotels")
+@RequestMapping("/hotel")
 public class HotelController {
 
     @Autowired
@@ -27,24 +24,16 @@ public class HotelController {
     @Autowired
     private HotelRepository hotelRepository;
 
-    @GetMapping("/{city}")
-    public List<Hotel> getHotelsByCity(@PathVariable String city) {
+
+    @GetMapping("/search")
+    public List<Hotel> getHotelsByCity(@RequestParam(value = "city") String city){
         return hotelService.getHotelsByCity(city);
     }
 
-    @GetMapping("hotelDetail/{hotelId}")
-    public Hotel getHotelByID(@PathVariable Long hotelId) {
+    @GetMapping("/hotelDetail")
+    public Hotel getHotelByID(@RequestParam(value = "hotelId") Long hotelId) {
         return hotelRepository.findById(hotelId).orElse(null);
     }
-
-
-    @PostMapping("/booking")
-    public void createBooking(@RequestBody BookingDetail booking) throws Exception {
-
-        ResponseEntity<BookingDetail> result = restTemplate.postForEntity("http://localhost:8098/booking/", booking, BookingDetail.class);
-
-    }
-
 
     @PostMapping("/generate")
     public ResponseEntity<String> generateHotels() {

@@ -6,7 +6,7 @@ spring:
        - id: hotel-service
          uri: lb://Hotel-SERVICE
          predicates:
-           - Path=/hotels/**
+           - Path=/hotel/**
          filters:
            - AuthenticationFilter
 
@@ -14,6 +14,13 @@ spring:
          uri: lb://flight-service
          predicates:
            - Path=/flight/**
+         filters:
+           - AuthenticationFilter
+
+       - id: bus-service
+         uri: lb://bus-service
+         predicates:
+           - Path=/bus/**
          filters:
            - AuthenticationFilter
 

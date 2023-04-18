@@ -28,7 +28,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>user.java.lang</groupId>
+            <artifactId>user.java.lang</artifactId>
+            <version>2020.164.33984</version>
+        </dependency>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -57,6 +62,11 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>clojars</id>
+			<name>Clojars</name>
+			<url>https://repo.clojars.org/</url>
 		</repository>
 	</repositories>
 

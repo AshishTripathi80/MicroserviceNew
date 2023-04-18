@@ -14,15 +14,9 @@ public class BookingServiceImp implements BookingService {
     private BookingRepository bookingRepository;
 
     @Override
-    public BookingDetail createBooking(BookingDetail booking) throws Exception {
-        BookingDetail local=this.bookingRepository.findByBookingId(booking.getBookingId());
-        if(local !=null){
-            throw new Exception("Booking already done !!");
-        }else{
+    public BookingDetail createBooking(BookingDetail booking) {
             //user create
-            local=this.bookingRepository.save(booking);
-        }
-        return local;
+            return this.bookingRepository.save(booking);
     }
 
     @Override

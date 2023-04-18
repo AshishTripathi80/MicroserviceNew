@@ -5,9 +5,9 @@ import com.bookingservice.model.BookingDetail;
 import java.util.List;
 
 public interface BookingService {
-    public BookingDetail createBooking(BookingDetail booking) throws Exception;
+    BookingDetail createBooking(BookingDetail booking);
 
-    public BookingDetail getBookingDetail(Long bookingId);
+    BookingDetail getBookingDetail(Long bookingId);
 
-    public List<BookingDetail> getAllBooking(String username);
+    List<BookingDetail> getAllBooking(String username);
 }
