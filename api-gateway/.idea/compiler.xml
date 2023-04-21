@@ -10,6 +10,7 @@
         <module name="discovery-server" />
         <module name="swiggy-gateway" />
         <module name="booking-service" />
+        <module name="myfavorite" />
         <module name="api-gateway" />
         <module name="bus-service" />
         <module name="user-service" />
@@ -26,6 +27,7 @@
       <module name="discovery-server" options="-parameters" />
       <module name="flight-service" options="-parameters" />
       <module name="hotel-service" options="-parameters" />
+      <module name="myfavorite" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
