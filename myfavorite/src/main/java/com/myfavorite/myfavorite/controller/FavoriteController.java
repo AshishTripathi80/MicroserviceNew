@@ -5,7 +5,9 @@ import com.myfavorite.myfavorite.model.BusDetail;
 import com.myfavorite.myfavorite.model.Favorite;
 import com.myfavorite.myfavorite.model.FlightDetail;
 import com.myfavorite.myfavorite.model.Hotel;
+import com.myfavorite.myfavorite.repo.BusRepo;
 import com.myfavorite.myfavorite.repo.FavoriteRepo;
+import com.myfavorite.myfavorite.repo.FlightRepo;
 import com.myfavorite.myfavorite.repo.HotelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,12 @@ public class FavoriteController {
 
     @Autowired
     private HotelRepo hotelRepo;
+
+    @Autowired
+    private FlightRepo flightRepo;
+
+    @Autowired
+    private BusRepo busRepo;
 
 
 
@@ -57,8 +65,9 @@ public class FavoriteController {
     public Favorite saveFavoriteFlight(@RequestBody FlightDetail flightDetail, @RequestParam(value = "username") String username){
         Favorite favorite=new Favorite();
         favorite.setUsername(username);
-        favorite.setFlightDetail(flightDetail);
 
+        favorite.setFlightDetail(flightDetail);
+        flightRepo.save(flightDetail);
         return favoriteRepo.save(favorite);
     }
 
@@ -77,6 +86,7 @@ public class FavoriteController {
     public Favorite saveFavoriteBus(@RequestBody BusDetail busDetail, @RequestParam(value = "username") String username){
         Favorite favorite=new Favorite();
         favorite.setUsername(username);
+        busRepo.save(busDetail);
         favorite.setBusDetail(busDetail);
 
         return favoriteRepo.save(favorite);
