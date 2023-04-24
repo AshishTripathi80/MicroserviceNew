@@ -28,4 +28,9 @@ public class BookingServiceImp implements BookingService {
     public List<BookingDetail> getAllBooking(String username) {
         return this.bookingRepository.findByUsername(username);
     }
+
+    @Override
+    public boolean isHotelBooked(Long hotelId) {
+        return bookingRepository.findByHotelId(hotelId).isPresent();
+    }
 }

@@ -19,6 +19,12 @@ public class BookingController {
     @PostMapping("/")
     public BookingDetail createBooking(@RequestBody BookingDetail booking) {
 
+        //return this.bookingService.createBooking(booking);
+        if (booking.getHotelId() != null && bookingService.isHotelBooked(booking.getHotelId())) {
+            throw new IllegalArgumentException("Hotel is already booked");
+        }
+
+        // Create the booking
         return this.bookingService.createBooking(booking);
     }
 

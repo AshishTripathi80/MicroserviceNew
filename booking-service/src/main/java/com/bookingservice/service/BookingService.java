@@ -10,4 +10,6 @@ public interface BookingService {
     BookingDetail getBookingDetail(Long bookingId);
 
     List<BookingDetail> getAllBooking(String username);
+
+    boolean isHotelBooked(Long hotelId);
 }

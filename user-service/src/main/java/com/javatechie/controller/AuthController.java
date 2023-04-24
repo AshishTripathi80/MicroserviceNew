@@ -56,6 +56,21 @@ public class AuthController {
     }
 
 
+    @PostMapping("/logout")
+    public void removeToken(@RequestBody UserCredential userCredential) {
+        UserCredential user = userCredentialRepository.findAllByUsername(userCredential.getUsername());
+
+        if (user.getUsername().equals(userCredential.getUsername()) && user.getPassword().equals(userCredential.getPassword())) {
+            user.setToken(null);
+            userCredentialRepository.save(user);
+        } else {
+            throw new RuntimeException("invalid access");
+        }
+    }
+
+
+
+
 
     @PostMapping("/generate")
     public ResponseEntity<String> generateUser() {

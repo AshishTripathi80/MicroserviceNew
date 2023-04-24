@@ -31,6 +31,13 @@ spring:
          filters:
            - AuthenticationFilter
 
+       - id: myfavorite
+         uri: lb://myfavorite
+         predicates:
+           - Path=/favorite/**
+         filters:
+           - AuthenticationFilter
+
 
        - id: user-service
          uri: lb://USER-SERVICE

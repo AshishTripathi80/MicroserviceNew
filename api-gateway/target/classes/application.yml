@@ -24,11 +24,26 @@ spring:
          filters:
            - AuthenticationFilter
 
+       - id: booking-service
+         uri: lb://booking-service
+         predicates:
+           - Path=/booking/**
+         filters:
+           - AuthenticationFilter
+
+       - id: myfavorite
+         uri: lb://myfavorite
+         predicates:
+           - Path=/favorite/**
+         filters:
+           - AuthenticationFilter
+
 
        - id: user-service
          uri: lb://USER-SERVICE
          predicates:
            - Path=/auth/**
+
 
  application:
    name: API-GATEWAY
