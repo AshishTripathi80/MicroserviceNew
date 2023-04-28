@@ -12,4 +12,8 @@ public interface BookingService {
     List<BookingDetail> getAllBooking(String username);
 
     boolean isHotelBooked(Long hotelId);
+
+    boolean isFlightBooked(Long flightId);
+
+    boolean isBusBooked(Long busId);
 }

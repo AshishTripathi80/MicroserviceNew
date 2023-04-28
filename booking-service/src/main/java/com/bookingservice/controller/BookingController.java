@@ -20,7 +20,13 @@ public class BookingController {
     public BookingDetail createBooking(@RequestBody BookingDetail booking) {
 
         //return this.bookingService.createBooking(booking);
-        if (booking.getHotelId() != null && bookingService.isHotelBooked(booking.getHotelId())) {
+        if (bookingService.isHotelBooked(booking.getHotelId())) {
+            throw new IllegalArgumentException("Hotel is already booked");
+        }
+        if (bookingService.isFlightBooked(booking.getFlightId())) {
+            throw new IllegalArgumentException("Hotel is already booked");
+        }
+        if (bookingService.isBusBooked(booking.getBusId())) {
             throw new IllegalArgumentException("Hotel is already booked");
         }
 

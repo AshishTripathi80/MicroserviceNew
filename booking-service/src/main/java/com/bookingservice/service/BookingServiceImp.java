@@ -33,4 +33,14 @@ public class BookingServiceImp implements BookingService {
     public boolean isHotelBooked(Long hotelId) {
         return bookingRepository.findByHotelId(hotelId).isPresent();
     }
+
+    @Override
+    public boolean isFlightBooked(Long flightId) {
+        return bookingRepository.findByFlightId(flightId).isPresent();
+    }
+
+    @Override
+    public boolean isBusBooked(Long busId) {
+        return bookingRepository.findByBusId(busId).isPresent();
+    }
 }
