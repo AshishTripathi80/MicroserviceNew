@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="discovery-server" />
+        <module name="payment-service" />
         <module name="swiggy-gateway" />
         <module name="booking-service" />
         <module name="myfavorite" />
@@ -28,6 +29,7 @@
       <module name="flight-service" options="-parameters" />
       <module name="hotel-service" options="-parameters" />
       <module name="myfavorite" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
