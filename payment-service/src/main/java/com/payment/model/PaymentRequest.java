@@ -1,6 +1,10 @@
 package com.payment.model;
 
+
 public class PaymentRequest {
+
+
+    private Long paymentId;
 
     private String email;
     private CreditCardDetails creditCardDetails;

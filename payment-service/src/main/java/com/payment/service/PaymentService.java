@@ -3,7 +3,6 @@ package com.payment.service;
 import com.payment.model.CreditCardDetails;
 import com.payment.model.PaymentRequest;
 import com.payment.repo.CreditCardDetailsRepository;
-import com.payment.repo.PaymentRequestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,9 +21,6 @@ public class PaymentService {
 
     @Autowired
     private CreditCardDetailsRepository creditCardDetailsRepository;
-
-    @Autowired
-    private PaymentRequestRepo paymentRequestRepo;
 
     private Map<String, String> otpMap = new HashMap<>();
 
