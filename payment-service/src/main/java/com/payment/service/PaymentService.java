@@ -25,10 +25,11 @@ public class PaymentService {
     private Map<String, String> otpMap = new HashMap<>();
 
     public String generateOTP(String email) {
-        String otp = String.valueOf(new Random().nextInt(999999));
+        String otp = String.valueOf(new Random().nextInt(9999));
         otpMap.put(email, otp);
         return otp;
     }
+
 
     public boolean verifyOTP(String email, String otp) {
         if (otpMap.containsKey(email)) {
@@ -53,11 +54,7 @@ public class PaymentService {
         creditCardDetailsRepository.save(creditCardDetails);
     }
 
-    public void performPaymentTransaction(PaymentRequest paymentRequest) {
-
-        CreditCardDetails creditCardDetails = paymentRequest.getCreditCardDetails();
-        CreditCardDetails card = creditCardDetailsRepository.findByCardNumber(creditCardDetails.getCardNumber());
-        double paymentAmount = paymentRequest.getAmount();
+    public void performPaymentTransaction(CreditCardDetails card,Double paymentAmount) {
         double availableBalance = card.getAvailableBalance();
         if (paymentAmount > availableBalance) {
             throw new RuntimeException("Insufficient funds");
@@ -66,16 +63,18 @@ public class PaymentService {
         creditCardDetailsRepository.save(card);
     }
 
-    public void performPaymentCancellation(PaymentRequest paymentRequest,Double cancelledAmount) {
-        CreditCardDetails creditCardDetails = paymentRequest.getCreditCardDetails();
-        CreditCardDetails card = creditCardDetailsRepository.findByCardNumber(creditCardDetails.getCardNumber());
+    public void performPaymentCancellation(String cardNumber,Double cancelledAmount) {
+        CreditCardDetails card = creditCardDetailsRepository.findByCardNumber(cardNumber);
         if (card == null) {
-            throw new RuntimeException("No credit card found for CardNumber: " + creditCardDetails.getCardNumber());
+            throw new RuntimeException("No credit card found for Card Number: " + cardNumber);
         }
         double availableBalance = card.getAvailableBalance();
         card.setAvailableBalance(availableBalance + cancelledAmount);
         creditCardDetailsRepository.save(card);
     }
 
+    public CreditCardDetails getCardByCardNumber(String cardNumber) {
+        return creditCardDetailsRepository.findByCardNumber(cardNumber);
+    }
 }
 

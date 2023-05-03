@@ -32,15 +32,20 @@ public class PaymentController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyOTP(@RequestBody OTPRequest otpRequest, @RequestBody PaymentRequest paymentRequest) {
-        String email = otpRequest.getEmail();
+    public ResponseEntity<?> verifyOTP(@RequestBody OTPRequest otpRequest, @RequestParam(value = "cardNumber") String cardNumber,@RequestParam(value = "price")Double price) {
         String otp = otpRequest.getOtp();
+        String email=otpRequest.getEmail();
+        CreditCardDetails card=paymentService.getCardByCardNumber(cardNumber);
+
+        if (card == null) {
+            return ResponseEntity.badRequest().body("Invalid Card Number");
+        }
 
         boolean isOTPValid = paymentService.verifyOTP(email, otp);
 
         if (isOTPValid) {
             // Perform payment transaction
-            paymentService.performPaymentTransaction(paymentRequest);
+            paymentService.performPaymentTransaction(card,price);
             return ResponseEntity.ok("Payment successful");
         } else {
             return ResponseEntity.badRequest().body("Invalid OTP");
@@ -48,10 +53,20 @@ public class PaymentController {
     }
 
 
+
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancelPayment(@RequestBody PaymentRequest paymentRequest, @RequestParam Double cancelAmount) {
-        paymentService.performPaymentCancellation(paymentRequest, cancelAmount);
+    public ResponseEntity<?> cancelPayment(@RequestParam(value = "cardNumber") String cardNumber,@RequestParam(value = "price")Double price) {
+        paymentService.performPaymentCancellation(cardNumber, price);
         return ResponseEntity.ok("Payment cancelled successfully");
+    }
+
+    @GetMapping("balance")
+    public ResponseEntity<?> getBalance(@RequestParam(value = "cardNumber")String cardNumber){
+        CreditCardDetails card=paymentService.getCardByCardNumber(cardNumber);
+        if (card == null) {
+            return ResponseEntity.badRequest().body("Invalid Card Number");
+        }
+        return ResponseEntity.ok(card.getAvailableBalance());
     }
 
 }
