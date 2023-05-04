@@ -2,6 +2,7 @@ package com.bookingservice.controller;
 
 import com.bookingservice.model.BookingDetail;
 import com.bookingservice.model.BookingRequest;
+import com.bookingservice.model.OTPRequest;
 import com.bookingservice.model.PaymentRequest;
 import com.bookingservice.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,17 @@ public class BookingController {
 
         // Create the booking
         return this.bookingService.createBooking(booking);
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyOTP(@RequestBody OTPRequest otpRequest, @RequestParam(value = "cardNumber") String cardNumber, @RequestParam(value = "price")Double price) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        ResponseEntity<?> response = restTemplate.postForEntity("http://localhost:8089/payment/verify?cardNumber="+cardNumber+"&price="+price, new HttpEntity<>(otpRequest, headers), String.class);
+        return response;
+
     }
 
 
