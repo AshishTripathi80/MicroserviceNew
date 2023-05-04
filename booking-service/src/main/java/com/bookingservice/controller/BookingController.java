@@ -1,9 +1,13 @@
 package com.bookingservice.controller;
 
 import com.bookingservice.model.BookingDetail;
+import com.bookingservice.model.BookingRequest;
+import com.bookingservice.model.PaymentRequest;
 import com.bookingservice.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -12,14 +16,29 @@ import java.util.List;
 @RequestMapping("/booking")
 public class BookingController {
 
+
+    @Autowired
+    RestTemplate restTemplate;
+
     @Autowired
     private BookingService bookingService;
 
 
     @PostMapping("/")
-    public BookingDetail createBooking(@RequestBody BookingDetail booking) {
+    public BookingDetail createBooking(@RequestBody BookingRequest bookingRequest) {
+        BookingDetail booking = bookingRequest.getBookingDetail();
+        PaymentRequest paymentRequest = bookingRequest.getPaymentRequest();
 
-        //return this.bookingService.createBooking(booking);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        ResponseEntity<?> response = restTemplate.postForEntity("http://localhost:8089/payment/initiate", new HttpEntity<>(paymentRequest, headers), String.class);
+
+
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new RuntimeException("Failed to initiate payment: " + response.getBody());
+        }
         if (bookingService.isHotelBooked(booking.getHotelId())) {
             throw new IllegalArgumentException("Hotel is already booked");
         }
@@ -33,6 +52,8 @@ public class BookingController {
         // Create the booking
         return this.bookingService.createBooking(booking);
     }
+
+
 
     @GetMapping("/ByBookingId")
     public BookingDetail getBookingDetail(@RequestParam(value = "bookingId") Long bookingId) {
