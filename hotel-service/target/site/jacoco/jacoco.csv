@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+hotel-service,com.hotelservice.hotelservice.service,HotelService,9,123,0,2,2,11,2,3,2,2
+hotel-service,com.hotelservice.hotelservice.controller,HotelController,13,13,0,0,2,5,2,3,2,3
+hotel-service,com.hotelservice.hotelservice.models,Hotel,36,30,0,0,16,12,10,4,10,4
+hotel-service,com.hotelservice.hotelservice.exception,NotFoundException,4,0,0,0,2,0,1,0,1,0
+hotel-service,com.hotelservice.hotelservice,HotelServiceApplication,5,7,0,0,2,2,1,2,1,2

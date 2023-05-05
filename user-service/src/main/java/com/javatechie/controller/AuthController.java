@@ -3,7 +3,9 @@ package com.javatechie.controller;
 import com.javatechie.entity.UserCredential;
 import com.javatechie.repository.UserCredentialRepository;
 import com.javatechie.service.AuthService;
+import com.javatechie.utility.GlobalResources;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+
+    private Logger logger= GlobalResources.getLogger(AuthController.class);
     @Autowired
     private AuthService service;
 
@@ -20,6 +25,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String addNewUser(@RequestBody UserCredential user) {
+        logger.info("Received a request to register a new user: {}", user.getUsername());
         return service.saveUser(user);
     }
 
@@ -29,6 +35,7 @@ public class AuthController {
 
 
         if (user.getUsername().equals(userCredential.getUsername()) && user.getPassword().equals(userCredential.getPassword())) {
+
             return service.generateToken(userCredential.getUsername());
         } else {
             throw new RuntimeException("invalid access");
@@ -43,6 +50,7 @@ public class AuthController {
         if (user.getUsername().equals(userCredential.getUsername()) && user.getPassword().equals(userCredential.getPassword())) {
             String token= service.generateToken(userCredential.getUsername());
             user.setToken(token);
+            logger.debug("Token generated for user {}: {}", userCredential.getUsername(), token);
             return user;
         } else {
             throw new RuntimeException("invalid access");

@@ -1,0 +1,6 @@
+com\hotelservice\hotelservice\repo\HotelRepository.class
+com\hotelservice\hotelservice\models\Hotel.class
+com\hotelservice\hotelservice\service\HotelService.class
+com\hotelservice\hotelservice\exception\NotFoundException.class
+com\hotelservice\hotelservice\controller\HotelController.class
+com\hotelservice\hotelservice\HotelServiceApplication.class
